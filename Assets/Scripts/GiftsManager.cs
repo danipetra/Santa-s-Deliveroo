@@ -12,7 +12,7 @@ public class GiftsManager : MonoBehaviour
     
     void Start()
     {
-        
+        int test;
     }
 
     
