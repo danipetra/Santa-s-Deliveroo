@@ -4,7 +4,7 @@ to be faster and given that the game's only platform will be the PC  */
 using UnityEngine;
 public class InputManager : MonoBehaviour
 {  
-    
+
     public Vector3 HandleMovement()
     {
         float x = Input.GetAxisRaw("Horizontal");
@@ -15,6 +15,13 @@ public class InputManager : MonoBehaviour
 
         return (forward + right).normalized;
     }
+
+    public void HandleRotation(float targetAngle, float speed)
+    {
+        if(Input.GetMouseButton(2))
+            targetAngle += Input.GetAxisRaw("Mouse X") * speed;  
+    }
+
 
     public void HandleInput(){
 
