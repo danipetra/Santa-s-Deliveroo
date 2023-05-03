@@ -3,19 +3,21 @@ to be faster and given that the game's only platform will be the PC  */
 
 using UnityEngine;
 public class InputManager : MonoBehaviour
-{    
-    void Start()
+{  
+    
+    public Vector3 HandleMovement()
     {
-        
+        float x = Input.GetAxisRaw("Horizontal");
+        float z = Input.GetAxisRaw("Vertical");
+
+        Vector3 right = transform.right * x;
+        Vector3 forward = transform.forward * z;
+
+        return (forward + right).normalized;
     }
 
-    void Update()
-    {
-        CheckForPlayerInput();
-    }
+    public void HandleInput(){
 
-    private void CheckForPlayerInput()
-    {
         if(Input.GetKeyDown(KeyCode.W))
         {
             Debug.Log("Move up");
