@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Befana : Agent
 {
-    [SerializeField] private float viewDistance;
+    [SerializeField] private float _viewDistance;
     
     void Start()
     {

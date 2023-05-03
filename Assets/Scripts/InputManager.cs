@@ -22,40 +22,27 @@ public class InputManager : MonoBehaviour
             targetAngle += Input.GetAxisRaw("Mouse X") * speed;  
     }
 
+    public float HandleZoom()
+    {
+        return Input.GetAxisRaw("Mouse ScrollWheel");
+    }
 
-    public void HandleInput(){
-
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            Debug.Log("Move up");
-        }
-
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log("Move Down");
-        }
-
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("Move Left");
-        }
-
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            Debug.Log("Move Right");
-        }
-        
+    public void HandleTacticalView()
+    {
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Tactical mode");
         }
-        
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+    }
+
+
+    public void HandleInput(){
+        if(Input.GetMouseButton(0))
         {
-            Debug.Log("Select Santa");
+            Debug.Log("Select Santa or deselect santa");
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if(Input.GetMouseButton(1))
         {
             Debug.Log("Send Santa");
         }

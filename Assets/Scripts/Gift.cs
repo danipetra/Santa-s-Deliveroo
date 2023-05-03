@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Gift : MonoBehaviour
 {
-    private GameObject source;
-    private GameObject destination;
+    private GameObject _source;
+    private GameObject _destination;
+
+    [SerializeField, Range(1, 10)]private float _weight; // each gift makes santa more slow
     
     void Start()
     {
@@ -18,13 +20,14 @@ public class Gift : MonoBehaviour
         
     }
 
-    public void HighlightDestination(){
+    public void HighlightDestination()
+    {
 
     }
 
-    public GameObject GetSource() => source;
-    public GameObject GetDestination() => destination;
+    public GameObject GetSource() => _source;
+    public GameObject GetDestination() => _destination;
 
-    public void SetDestination(GameObject dest) => destination = dest;
-    public void SetSource(GameObject sour) => source = sour;
+    public void SetDestination(GameObject dest) => _destination = dest;
+    public void SetSource(GameObject sour) => _source = sour;
 }

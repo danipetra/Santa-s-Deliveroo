@@ -20,8 +20,18 @@ public class CameraSystem : MonoBehaviour
     private float _rotationInput;
     [Space(10)]
 
+    [Header ("Zoom")]
+    [SerializeField, Range(5f, 20f)] private float _zoomSpeed;
+    [SerializeField, Range(5f, 10f)] private float _zoomSmoothness;
+    private Vector2  _zoomRange = new(100f , 600f);
+    
+    [SerializeField] private Transform _cameraHolder;
+    private Vector3 _cameraDirection => transform.InverseTransformDirection(_cameraHolder.forward);
+    private Vector3 _zoomTargetPosition;
+    private float _zoomInput;
+    [Space(10)]
+
     private InputManager _inputManager;
-    private GameObject _cameraHolder;
 
     private void Awake() {
         _inputManager = GetComponent<InputManager>();
@@ -30,6 +40,8 @@ public class CameraSystem : MonoBehaviour
 
         _targetAngle = transform.eulerAngles.y;
         _currentAngle = _targetAngle;
+
+        _zoomTargetPosition = _cameraHolder.localPosition;
     }
 
 
@@ -41,12 +53,16 @@ public class CameraSystem : MonoBehaviour
 
         _inputManager.HandleRotation(_targetAngle, _rotationSpeed);
         Rotate();
+
+        _zoomInput = _inputManager.HandleZoom();
+        Zoom();
+
     }
 
     public void Move()
     {
         Vector3 nextTargetPosition = _targetPosition + _moveInput * _moveSpeed;
-        if(IsInBounds(nextTargetPosition)) _targetPosition = nextTargetPosition;
+        if(IsInPlanarBounds(nextTargetPosition)) _targetPosition = nextTargetPosition;
         transform.position = Vector3.Lerp(transform.position, _targetPosition, Time.deltaTime * _moveSmoothness);
     }
 
@@ -56,12 +72,23 @@ public class CameraSystem : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(_currentAngle, Vector3.up);
     }
 
-    private bool IsInBounds(Vector3 position)
+    private void Zoom()
+    {
+        Vector3 nextTargetPosition = _zoomTargetPosition + _cameraDirection *(_zoomInput * _zoomSpeed);
+        if(IsInYBounds(nextTargetPosition)) _zoomTargetPosition = nextTargetPosition;
+    }
+
+    private bool IsInPlanarBounds(Vector3 position)
     {
         return position.x > -_moveRange.x &&
                position.x < _moveRange.x &&
                position.z > -_moveRange.y &&
                position.z < _moveRange.y;
+    }
+
+    private bool IsInYBounds(Vector3 position)
+    {
+        return position.magnitude > _zoomRange.x && position.magnitude < _zoomRange.y;
     }
 
     private void OnDrawGizmos() {

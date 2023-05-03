@@ -411,6 +411,9 @@ MonoBehaviour:
   _moveRange: {x: 280, y: 280}
   _rotationSpeed: 15
   _rotationSmoothness: 5
+  _zoomSpeed: 20
+  _zoomSmoothness: 10
+  _cameraHolder: {fileID: 95837553}
 --- !u!1 &1036602678
 GameObject:
   m_ObjectHideFlags: 0

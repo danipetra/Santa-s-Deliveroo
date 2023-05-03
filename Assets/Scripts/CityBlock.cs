@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CityBlock : MonoBehaviour
 {
-    public bool canSpawnGift;
-
     void Start()
     {
         

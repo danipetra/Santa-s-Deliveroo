@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Agent : MonoBehaviour
 {
-    [SerializeField, Range(5f, 20f)] protected float moveSpeed;
+    [SerializeField, Range(5f, 20f)] protected float _moveSpeed;
     
     void Start()
     {
